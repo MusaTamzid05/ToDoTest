@@ -9,7 +9,7 @@ class Task(models.Model):
             ("DONE", "Done")
             ]
 
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="task")
     title = models.CharField(max_length=2000)
     description = models.TextField()
     due_date = models.DateField()

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+   Task Delete
+{% endblock %}
+
+{% block content %}
+    <h1>Delete Task</h1>
+    <p>Are you sure you want delete "{{task.title}}" </p>
+    <form method="post">
+        {% csrf_token  %}
+        {{ form.as_p }}
+        <button type="submit">Yes Delete</button>
+    </form>
+{% endblock %}
+

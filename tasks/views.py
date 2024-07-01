@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 from account.models import Profile
 from .forms import TaskForm
+from .models import Task
 from django.contrib.auth.decorators import login_required
 
 
@@ -21,6 +23,20 @@ def create_task(request):
         form = TaskForm()
 
     return render(request, "tasks/create_task.html", {"form" : form})
+
+
+
+@login_required
+def delete_task(request, task_id):
+    profile = Profile.objects.get(user=request.user)
+    task = get_object_or_404(Task,id=task_id, profile=profile)
+
+
+    if request.method == "POST":
+        task.delete()
+        return redirect("dashboard")
+
+    return render(request, "tasks/delete_task.html", {"task" : task})
 
 
 
