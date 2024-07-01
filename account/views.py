@@ -8,17 +8,24 @@ from django.http import HttpResponse
 from .forms import LoginForm
 from .forms import UserRegistrationForm
 from .models import Profile
+from tasks.models import Task
+from account.models import Profile
+
 
 
 
 @login_required
 def dashboard(request):
     username = request.user.username
+    profile = Profile.objects.get(user=request.user)
+    tasks = Task.objects.filter(profile=profile)
+
 
     return render(
             request,
             "account/dashboard.html",
-            {"username" : username}
+            {"username" : username, "tasks" : tasks}
+
             )
 
 def user_login(request):
@@ -48,8 +55,6 @@ def user_login(request):
 
     else:
         form = LoginForm()
-
-
 
 
     return render(

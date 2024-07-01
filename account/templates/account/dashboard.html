@@ -6,4 +6,12 @@
 
 {% block content %}
     <h1>Hello, {{username}}</h1>
+    <ul>
+        {% for task in tasks  %}
+            <li>
+                <strong>{{task.title}}</strong> - {{ task.get_status_display}} - {{ task.due_date}}
+                <p>{{ task.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
