@@ -40,3 +40,21 @@ def delete_task(request, task_id):
 
 
 
+
+
+@login_required
+def edit_task(request, task_id):
+    profile = Profile.objects.get(user=request.user)
+    task = get_object_or_404(Task,id=task_id, profile=profile)
+
+    if request.method == "POST":
+        form = TaskForm(request.POST, instance=task)
+
+        if form.is_valid():
+            task = form.save()
+            return redirect("dashboard")
+    else:
+        form = TaskForm(instance=task)
+
+    return render(request, "tasks/edit_task.html", {"form" : form})
+
