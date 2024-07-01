@@ -7,6 +7,17 @@
 {% block content %}
     <h1>Hello, {{username}}</h1>
     <a href="{% url 'create_task' %}"><strong>Create Task</strong></a>
+    <form method="GET">
+        <label for="status_filter">Filter by status:</label>
+        <select id="status_filter" name="status">
+            <option value="">All</option>
+            <option value="TO_DO" {% if status_filter == "TO_DO" %} selected {% endif %}>To Do</option>
+            <option value="IN_PROGRESS" {% if status_filter == "IN_PROGRESS" %} selected {% endif %}>In Progress</option>
+            <option value="DONE" {% if status_filter == "DONE" %} selected {% endif %}>Done</option>
+        </select>
+        <button type="submit">Filter</button>
+
+    </form>
     <ul>
         {% for task in tasks  %}
             <li>

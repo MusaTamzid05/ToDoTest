@@ -18,13 +18,21 @@ from account.models import Profile
 def dashboard(request):
     username = request.user.username
     profile = Profile.objects.get(user=request.user)
-    tasks = Task.objects.filter(profile=profile)
+
+    status_filter = request.GET.get("status", "")
+    print(status_filter)
+
+    if status_filter:
+        tasks = Task.objects.filter(profile=profile, status=status_filter)
+    else:
+        tasks = Task.objects.filter(profile=profile)
 
 
     return render(
             request,
             "account/dashboard.html",
-            {"username" : username, "tasks" : tasks}
+            {"username" : username, "tasks" : tasks, "status_filter" : status_filter}
+
 
             )
 
