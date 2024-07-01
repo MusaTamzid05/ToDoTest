@@ -10,7 +10,7 @@
 <body>
     <div id="content">
         <div id="header">
-            <span class="logo">Dashboard</span>
+            <span class="logo"><a href="{% url 'dashboard' %}">Dashboard</a></span>
              <span class="user">
                      {% if request.user.is_authenticated  %}
                          Hello {{ request.user.first_name|default:request.user.username }},
