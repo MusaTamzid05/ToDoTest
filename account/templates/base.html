@@ -13,11 +13,11 @@
             <span class="logo">Dashboard</span>
              <span class="user">
                      {% if request.user.is_authenticated  %}
-                     Hello {{ request.user.first_name|default:request.user.username }},
-			     <form action="{% url 'logout' %}" method="post">
-				 <button type="submit">Logout</button>
-				 {% csrf_token %}
-			     </form>
+                         Hello {{ request.user.first_name|default:request.user.username }},
+                         <form action="{% url 'logout' %}" method="post">
+                         <button type="submit">Logout</button>
+                         {% csrf_token %}
+                         </form>
                      {% else %}
                          <a href="{% url 'login' %}">Log In</a>
                      {% endif %}
@@ -32,8 +32,10 @@
         {% endfor %}
     </ul>
         </div>
-        {% block content %}
-        {% endblock %}
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
     </div>
 </body>
 </html>
