@@ -58,3 +58,10 @@ def edit_task(request, task_id):
 
     return render(request, "tasks/edit_task.html", {"form" : form})
 
+
+@login_required
+def show_task(request, task_id):
+    profile = Profile.objects.get(user=request.user)
+    task = get_object_or_404(Task,id=task_id, profile=profile)
+
+    return render(request, "tasks/show_task.html", {"task" : task})
