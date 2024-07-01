@@ -15,6 +15,12 @@
             <option value="IN_PROGRESS" {% if status_filter == "IN_PROGRESS" %} selected {% endif %}>In Progress</option>
             <option value="DONE" {% if status_filter == "DONE" %} selected {% endif %}>Done</option>
         </select>
+
+        <label for="sort_order">Sort by::</label>
+        <select id="sort_order" name="sort">
+            <option value="created_date" {% if sort_order == "created_date" %} selected {% endif %}>Created Date</option>
+            <option value="due_date" {% if sort_order == "due_date" %} selected {% endif %}>Due Date</option>
+        </select>
         <button type="submit">Filter</button>
 
     </form>

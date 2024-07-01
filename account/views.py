@@ -27,11 +27,23 @@ def dashboard(request):
     else:
         tasks = Task.objects.filter(profile=profile)
 
+    sort_order = request.GET.get("sort", "created_at")
+
+    print(sort_order)
+
+    if sort_order == "due_date":
+        tasks = tasks.order_by("-due_date")
+    else:
+        tasks = tasks.order_by("-created_at")
+
 
     return render(
             request,
             "account/dashboard.html",
-            {"username" : username, "tasks" : tasks, "status_filter" : status_filter}
+            {"username" : username, "tasks" : tasks,
+                "status_filter" : status_filter, 
+                "sort_order" :sort_order 
+            }
 
 
             )

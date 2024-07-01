@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from account.models import Profile
 
 
@@ -13,6 +14,7 @@ class Task(models.Model):
     title = models.CharField(max_length=2000)
     description = models.TextField()
     due_date = models.DateField()
+    created_at = models.DateField(auto_now_add=True)
     status = models.CharField(
             max_length=20,
             choices=STATUS_CHOICES,
