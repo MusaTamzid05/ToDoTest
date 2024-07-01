@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from django.contrib.auth import logout
 from django.http import HttpResponse
 from .forms import LoginForm
 from .forms import UserRegistrationForm
@@ -82,4 +83,8 @@ def register(request):
             "account/register.html",
             {"user_form" : user_form}
             )
+
+def logout_view(request):
+    logout(request)
+    return render(request, "account/logout.html")
 
