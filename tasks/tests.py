@@ -1,6 +1,9 @@
 from django.test import TestCase
-from .models import Task, Profile
+from django.test import Client
+from .models import Task
+from .models import Profile
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 class TaskModelTestCase(TestCase):
     def setUp(self):
@@ -63,3 +66,50 @@ class TaskModelTestCase(TestCase):
         task = Task.objects.get(id=self.task1.id)
         task.delete()
         self.assertEqual(Task.objects.count(), 1)
+
+
+
+class TaskURLTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.profile = Profile.objects.create(user=self.user)
+        self.task1 = Task.objects.create(
+            title='Task 1',
+            description='This is the first task',
+            due_date='2023-06-30',
+            status='TO_DO',
+            profile=self.profile
+        )
+        self.task2 = Task.objects.create(
+            title='Task 2',
+            description='This is the second task',
+            due_date='2023-07-15',
+            status='IN_PROGRESS',
+            profile=self.profile
+        )
+
+    def test_create_task_url(self):
+        client = Client()
+        client.login(username='testuser', password='testpass')
+        response = client.get(reverse('create_task'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_delete_task_url(self):
+        client = Client()
+        client.login(username='testuser', password='testpass')
+        response = client.get(reverse('delete_task', args=[self.task1.id]))
+        self.assertEqual(response.status_code, 200)  
+        response = client.post(reverse('delete_task', args=[self.task1.id]))
+        self.assertEqual(response.status_code, 302)  # Redirects after deletion
+
+    def test_edit_task_url(self):
+        client = Client()
+        client.login(username='testuser', password='testpass')
+        response = client.get(reverse('edit_task', args=[self.task1.id]))
+        self.assertEqual(response.status_code, 200)
+
+    def test_show_task_url(self):
+        client = Client()
+        client.login(username='testuser', password='testpass')
+        response = client.get(reverse('show_task', args=[self.task1.id]))
+        self.assertEqual(response.status_code, 200)

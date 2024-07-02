@@ -9,7 +9,7 @@ def send_task_notification(sender, instance, created, **kwargs):
     subject = f"Task {'Created' if created else 'Updated'} : {instance.title}"
     message = f"A New task has been {'created' if created else 'Updated'}"
 
-    print("New post save")
+    #print("New post save")
 
     profile = instance.profile
 
