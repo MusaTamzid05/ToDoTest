@@ -11,7 +11,6 @@ def send_celery_task_notification(task_id, created):
     subject = f"Task {'Created' if created else 'Updated'} : {task.title}"
     message = f"A New task has been {'created' if created else 'Updated'}"
 
-    print("Sending notification from celery")
 
 
 
