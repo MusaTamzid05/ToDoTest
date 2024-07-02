@@ -5,6 +5,7 @@ from account.models import Profile
 from .forms import TaskForm
 from .models import Task
 from django.contrib.auth.decorators import login_required
+from .celery_tasks import send_celery_task_notification
 
 
 @login_required
@@ -18,6 +19,7 @@ def create_task(request):
             task = form.save(commit=False)
             task.profile = profile
             task.save()
+            send_celery_task_notification.delay(task_id=task.id, created=True)
             return redirect("dashboard")
     else:
         form = TaskForm()
@@ -52,6 +54,7 @@ def edit_task(request, task_id):
 
         if form.is_valid():
             task = form.save()
+            send_celery_task_notification.delay(task_id=task.id, created=False)
             return redirect("dashboard")
     else:
         form = TaskForm(instance=task)
