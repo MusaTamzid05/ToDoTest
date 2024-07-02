@@ -52,4 +52,3 @@ Follow these steps to set up and run your Django application. Ensure you have Py
 
 ---
 
-Copy and paste the above instructions into your `README.md` file to provide a clear and professional setup guide for your Django application.
