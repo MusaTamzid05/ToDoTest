@@ -8,7 +8,7 @@
     <h1>Hello, {{username}}</h1>
     <a href="{% url 'create_task' %}"><strong>Create Task</strong></a>
     <form method="GET">
-        <label for="status_filter">Filter by status:</label>
+        <label for="status_filter">Filter </label>
         <select id="status_filter" name="status">
             <option value="">All</option>
             <option value="TO_DO" {% if status_filter == "TO_DO" %} selected {% endif %}>To Do</option>
@@ -16,7 +16,6 @@
             <option value="DONE" {% if status_filter == "DONE" %} selected {% endif %}>Done</option>
         </select>
 
-        <label for="sort_order">Sort by::</label>
         <select id="sort_order" name="sort">
             <option value="created_date" {% if sort_order == "created_date" %} selected {% endif %}>Created Date</option>
             <option value="due_date" {% if sort_order == "due_date" %} selected {% endif %}>Due Date</option>
