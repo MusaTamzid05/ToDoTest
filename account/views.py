@@ -30,9 +30,9 @@ def dashboard(request):
 
 
     if sort_order == "due_date":
-        tasks = tasks.order_by("-due_date")
+        tasks = tasks.order_by("due_date")
     else:
-        tasks = tasks.order_by("-created_at")
+        tasks = tasks.order_by("created_at")
 
 
     return render(
